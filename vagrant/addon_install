@@ -1,0 +1,14 @@
+step1:   cd /opt
+step2:   sudo wget http://download.virtualbox.org/virtualbox/6.1.28/VBoxGuestAdditions_6.1.28.iso -O VBoxGuestAdditions_6.1.28.iso
+step3:   sudo mount VBoxGuestAdditions_6.1.28.iso  -o loop /mnt
+step4:   sudo sh /mnt/autorun.sh
+step5:   sudo sh /mnt/runasroot.sh
+step6:   sudo mount VBoxGuestAdditions_6.1.28.iso  -o loop /mnt
+step7:   cd /mnt
+step8:   ls -lart
+step9:   sudo sh ./VBoxLinuxAdditions.run
+step10:  sudo apt install build-essential linux-kernel-headers
+step11:  sudo apt-get update
+step12:  sudo apt install build-essential linux-kernel-headers
+step13:  sudo sh ./VBoxLinuxAdditions.run
+step14:  exit
