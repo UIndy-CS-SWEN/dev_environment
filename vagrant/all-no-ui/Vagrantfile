@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "generic/ubuntu2004"
-  config.vm.hostname = 'ubdev'
+  config.vm.hostname = 'ub2004dev'
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -70,4 +70,30 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
+  #
+  # With "privileged: false" the shell script will be run as vagrant. Otherwise,
+  # it will be run as root
+
+  config.vm.provision "shell", privileged: false,  inline: <<-SHELL
+    # install python
+    sudo apt update
+    sudo apt -y upgrade
+    sudo apt install -y python3-pip
+    echo 'alias python=python3' >> ~/.bashrc
+
+    # install nvm and nodejs
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+    source ~/.bashrc
+
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    nvm install v14.17.4
+    nvm list
+
+    #install docker
+
+  SHELL
+
+
 end
